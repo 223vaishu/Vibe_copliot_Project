@@ -1,0 +1,340 @@
+/* Visitor.css - Modern & Animated */
+:root {
+    --primary: #4361ee;
+    --primary-light: #4895ef;
+    --secondary: #3f37c9;
+    --accent: #f72585;
+    --light: #f8f9fa;
+    --dark: #212529;
+    --success: #4cc9f0;
+    --warning: #f8961e;
+    --danger: #ef233c;
+    --gray: #adb5bd;
+  }
+  
+  /* Base Styles with Smooth Transitions */
+  .visitor-container {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 25px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+  
+  .visitor-container:hover {
+    box-shadow: 0 6px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header with Gradient */
+  .visitor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .visitor-header h1 {
+    color: var(--dark);
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }
+  
+  /* Buttons with Hover Effects */
+  .add-visitor-btn {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 6px rgba(67, 97, 238, 0.2);
+  }
+  
+  .add-visitor-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(67, 97, 238, 0.3);
+    background: linear-gradient(135deg, var(--primary-light), var(--primary));
+  }
+  
+  /* Cards & Sections */
+  .registered-vehicles {
+    margin-bottom: 25px;
+    animation: slideUp 0.4s ease-out;
+  }
+  
+  .registered-vehicles h2 {
+    font-size: 18px;
+    color: var(--dark);
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+  
+  .vehicle-types {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .vehicle-type-btn {
+    padding: 8px 16px;
+    background-color: white;
+    border: 1px solid var(--gray);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--dark);
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .vehicle-type-btn:hover {
+    background-color: var(--light);
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-1px);
+  }
+  
+  /* Tabs with Animation */
+  .visitor-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  .tab-btn {
+    padding: 8px 16px;
+    background-color: white;
+    border: 1px solid var(--gray);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--dark);
+    transition: all 0.3s ease;
+  }
+  
+  .tab-btn.active {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 2px 8px rgba(67, 97, 238, 0.2);
+  }
+  
+  .tab-btn:hover:not(.active) {
+    background-color: var(--light);
+    border-color: var(--primary-light);
+  }
+  
+  /* Search Bar with Focus Effect */
+  .search-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    align-items: center;
+    gap: 20px;
+    animation: slideUp 0.5s ease-out;
+  }
+  
+  .search-bar input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid var(--gray);
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .search-bar input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+    background-color: white;
+  }
+  
+  /* Table Styles with Hover Effects */
+  .action-header {
+    background-color: rgba(67, 97, 238, 0.1);
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    backdrop-filter: blur(5px);
+  }
+  
+  .header-row1 {
+    display: grid;
+    grid-template-columns: 50px repeat(9, 1fr);
+    gap: 1px;
+    font-weight: 600;
+    color: var(--dark);
+    font-size: 14px;
+  }
+  
+  .visitor-list {
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .visitor-row {
+    display: grid;
+    grid-template-columns: 50px repeat(9, 1fr);
+    gap: 10px;
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    align-items: center;
+    font-size: 14px;
+    transition: all 0.2s ease;
+  }
+  
+  .visitor-row:hover {
+    background-color: rgba(67, 97, 238, 0.05);
+    transform: translateX(2px);
+  }
+  
+  .visitor-row:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+  
+  .visitor-row:nth-child(even):hover {
+    background-color: rgba(67, 97, 238, 0.05);
+  }
+  
+  .visitor-cell {
+    padding: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--dark);
+  }
+  
+  .action-cell {
+    font-weight: 600;
+    color: var(--primary);
+  }
+  
+  /* Pagination with Animation */
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px 0;
+    font-size: 14px;
+    animation: fadeIn 0.7s ease-out;
+  }
+  
+  .page-buttons button {
+    padding: 8px 12px;
+    background-color: white;
+    border: 1px solid var(--gray);
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--dark);
+    transition: all 0.2s ease;
+  }
+  
+  .page-buttons button:hover:not(:disabled) {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: translateY(-1px);
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideUp {
+    from { 
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .header-row,
+    .visitor-row {
+      grid-template-columns: 40px repeat(4, 1fr);
+      overflow-x: auto;
+    }
+    
+    .visitor-cell:nth-child(n+6) {
+      display: none;
+    }
+    
+    .visitor-container {
+      padding: 15px;
+      border-radius: 0;
+    }
+  }
+  
+ 
+  
+  /* Floating Animation for Important Elements */
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  .add-visitor-btn {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  /* Pulse Animation for Active Elements */
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(67, 97, 238, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(67, 97, 238, 0); }
+  }
+  
+  .tab-btn.active {
+    animation: pulse 2s infinite;
+  }
+  
+  /* Gradient Border Effect */
+  .action-header {
+    position: relative;
+  }
+  
+  .action-header::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    border-radius: 8px;
+    background: linear-gradient(45deg, var(--primary), var(--accent));
+    z-index: -1;
+    opacity: 0.3;
+  }
