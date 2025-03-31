@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Visitor from './visitor';
 import NewVisitor from './NewVisitor';
 import Staff from './staff';
-import NewStaff from './Newstaff';
+import NewStaff from './NewStaff';
 import VisitorIn from './Pages/VisitorIn';
 import VisitorOut from './Pages/VisitorOut';
 
