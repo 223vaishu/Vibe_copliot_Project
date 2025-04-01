@@ -8,39 +8,67 @@ const Visitor = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [totalVisitors, setTotalVisitors] = useState(0);
   const [activeTab, setActiveTab] = useState('All');
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
+  // Main function to load visitors from localStorage
+  const loadVisitors = () => {
+    setIsLoading(true);
+    try {
+      const storedVisitors = JSON.parse(localStorage.getItem('visitors')) || [];
+      // Sort by newest first
+      const sortedVisitors = storedVisitors.sort((a, b) => b.id - a.id);
+      setVisitors(sortedVisitors);
+      setTotalVisitors(sortedVisitors.length);
+    } catch (error) {
+      console.error('Error loading visitors:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    // Load visitors from localStorage
-    const storedVisitors = JSON.parse(localStorage.getItem('visitors')) || [];
-    setVisitors(storedVisitors);
-    setTotalVisitors(storedVisitors.length);
+    // Load immediately on mount
+    loadVisitors();
+
+    // Create a custom event listener for our own storage updates
+    const handleCustomStorageEvent = () => {
+      loadVisitors();
+    };
+
+    // Listen for both standard storage events and our custom events
+    window.addEventListener('storage', loadVisitors);
+    window.addEventListener('custom-storage', handleCustomStorageEvent);
+    
+    // Poll localStorage as a fallback (every 2 seconds)
+    const pollInterval = setInterval(loadVisitors, 2000);
+
+    return () => {
+      window.removeEventListener('storage', loadVisitors);
+      window.removeEventListener('custom-storage', handleCustomStorageEvent);
+      clearInterval(pollInterval);
+    };
   }, []);
 
+  // Handle page changes
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
 
+  // Handle rows per page changes
   const handleRowsPerPageChange = (e) => {
     setRowsPerPage(Number(e.target.value));
     setCurrentPage(1);
   };
 
+  // Handle tab changes
   const handleTabChange = (tab) => {
     setActiveTab(tab);
-    switch(tab) {
-      case 'Visitor in':
-        navigate('/visitor-in');
-        break;
-      case 'Visitor Out':
-        navigate('/visitor-out');
-        break;
-      default:
-        // Stay on current page for other tabs
-        break;
-    }
+    if (tab === 'Visitor in') navigate('/visitor-in');
+    else if (tab === 'Visitor Out') navigate('/visitor-out');
   };
 
+  // Handle adding new visitor
   const handleAddVisitor = () => {
     navigate('/new-visitor');
   };
@@ -70,7 +98,6 @@ const Visitor = () => {
       
       <div className="divider"></div>
 
-      
       <div className="visitor-tabs">
         {['All', 'Visitor in', 'Visitor Out', 'Approvals', 'History', 'Logs', 'Self-Registration'].map(tab => (
           <button
@@ -111,20 +138,26 @@ const Visitor = () => {
       </div>
       
       <div className="visitor-list">
-        {currentVisitors.map(visitor => (
-          <div key={visitor.id} className="visitor-row">
-            <div className="visitor-cell action-cell">00</div>
-            <div className="visitor-cell">{visitor.type}</div>
-            <div className="visitor-cell">{visitor.name}</div>
-            <div className="visitor-cell">{visitor.mobile}</div>
-            <div className="visitor-cell">{visitor.purpose}</div>
-            <div className="visitor-cell">{visitor.passNumber}</div>
-            <div className="visitor-cell">{visitor.date}</div>
-            <div className="visitor-cell">{visitor.time}</div>
-            <div className="visitor-cell">{visitor.origin}</div>
-            <div className="visitor-cell">{visitor.status || 'Pending'}</div>
-          </div>
-        ))}
+        {isLoading ? (
+          <div className="loading">Loading visitors...</div>
+        ) : visitors.length === 0 ? (
+          <div className="empty-state">No visitors found. Add a new visitor to get started.</div>
+        ) : (
+          currentVisitors.map((visitor, index) => (
+            <div key={visitor.id} className="visitor-row">
+              <div className="visitor-cell action-cell">{index + 1}</div>
+              <div className="visitor-cell">{visitor.type}</div>
+              <div className="visitor-cell">{visitor.name}</div>
+              <div className="visitor-cell">{visitor.mobile}</div>
+              <div className="visitor-cell">{visitor.purpose}</div>
+              <div className="visitor-cell">{visitor.passNumber}</div>
+              <div className="visitor-cell">{visitor.date}</div>
+              <div className="visitor-cell">{visitor.time}</div>
+              <div className="visitor-cell">{visitor.origin}</div>
+              <div className="visitor-cell">{visitor.status || 'Pending'}</div>
+            </div>
+          ))
+        )}
       </div>
       
       <div className="pagination">

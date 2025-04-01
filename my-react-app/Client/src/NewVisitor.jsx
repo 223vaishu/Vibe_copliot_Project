@@ -13,7 +13,7 @@ const NewVisitor = () => {
     additionalVisitorName: '',
     mobile: '',
     origin: '',
-    date: new Date().toLocaleDateString('en-GB'),
+    date: new Date().toISOString().split('T')[0],
     frequency: 'Once',
     skipApproval: false,
     photo: null
@@ -90,12 +90,14 @@ const NewVisitor = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  
+  
     
-    if (!mobileVerified) {
-      alert('Please verify your mobile number with OTP first');
+    if (!formData.photo) {
+      alert('Please capture a photo of the visitor');
       return;
     }
-    
+
     const newVisitor = {
       id: Date.now(),
       ...formData,
@@ -105,11 +107,17 @@ const NewVisitor = () => {
       verificationTimestamp: new Date().toISOString()
     };
 
-    const existingVisitors = JSON.parse(localStorage.getItem('visitors')) || [];
-    const updatedVisitors = [newVisitor, ...existingVisitors];
-    localStorage.setItem('visitors', JSON.stringify(updatedVisitors));
-
-    navigate('/');
+    try {
+      const existingVisitors = JSON.parse(localStorage.getItem('visitors')) || [];
+      const updatedVisitors = [newVisitor, ...existingVisitors];
+      localStorage.setItem('visitors', JSON.stringify(updatedVisitors));
+      
+      alert('Visitor added successfully!');
+      navigate('/');
+    } catch (error) {
+      console.error('Error saving visitor:', error);
+      alert('Failed to save visitor. Please try again.');
+    }
   };
 
   return (
@@ -181,7 +189,6 @@ const NewVisitor = () => {
           />
         </div>
 
-        {/* Photo Capture Section */}
         <div className="form-group">
           <label>Visitor Photo:</label>
           <div className="photo-capture-container">
@@ -373,13 +380,13 @@ const NewVisitor = () => {
         </div>
 
         <div className="form-actions">
-          <button type="button" className="cancel-btn" onClick={() => navigate('/')}>
+          <button type="button" className="cancel-btn" onClick={() => navigate('/visitor')}>
             Cancel
           </button>
           <button 
             type="submit" 
             className="submit-btn"
-            disabled={!mobileVerified || !formData.photo}
+            onClick={() => navigate('/')}
           >
             Add Visitor
           </button>
